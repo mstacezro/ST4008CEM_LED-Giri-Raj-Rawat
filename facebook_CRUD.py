@@ -5,6 +5,14 @@ Several necessary input and output is carried out in a GUI prepared by importing
 The GUI allows addition, display and modification of instructions. 
 '''
 
+'''
+CRUD is an acronym that comes from the world of computer programming and 
+refers to the four functions that are considered necessary to implement a persistent storage application: 
+create, read, update and delete. Persistent storage refers to any data storage device 
+that retains power after the device is powered off, 
+such as a hard disk or a solid-state drive.
+'''
+
 #import tkinter for GUI, sqlite3 for database 
 from tkinter import *
 from tkinter import ttk
@@ -20,8 +28,8 @@ root=Tk()
 root.title("Facebook")
 
 #dimension, background color of project
-root.geometry("535x450")
-# root.resizable(0,0)     #nonresizable, for resizable (True,True)
+root.geometry("535x700")
+root.resizable(0,0)     #nonresizable, for resizable (True,True)
 root.config(bg='#3090C7')
 
 #icon of facebook
@@ -30,7 +38,11 @@ from PIL import Image, ImageTk
 logo = ImageTk.PhotoImage(file='/home/mstacezro/Documents/SOFTWARICA/Programming and Algorithms--Giri Raj Rawat/CODES/S-Q-L-l-i-lt-e/data---boss/fb.png')
 root.tk.call('wm', 'iconphoto', root._w, logo)
 
-
+my_image=Image.open("user_photo.png")
+resized_image=my_image.resize((300,250))
+converted_image=ImageTk.PhotoImage(resized_image)
+myLabel=Label(root,image=converted_image)
+myLabel.grid(row=0,column=0,columnspan=4)
 
 # DATABASES
 #create a database or connect to one
@@ -373,75 +385,75 @@ def edit():
 
 # Create text entries
 f_name=Entry(root,width=30,bg='white')
-f_name.grid(row=0,column=1,padx=20)
+f_name.grid(row=1,column=1,padx=20)
 
 l_name=Entry(root,width=30)
-l_name.grid(row=1,column=1)
+l_name.grid(row=2,column=1)
 
 age=Entry(root,width=30)
-age.grid(row=2,column=1)
+age.grid(row=3,column=1)
 
 password=Entry(root,width=30,show="*")
-password.grid(row=3,column=1)
+password.grid(row=4,column=1)
 
 father_name=Entry(root,width=30)
-father_name.grid(row=4,column=1)
+father_name.grid(row=5,column=1)
 
 address=Entry(root,width=30)
-address.grid(row=5,column=1)
+address.grid(row=6,column=1)
 
 city=Entry(root,width=30)
-city.grid(row=6,column=1)
+city.grid(row=7,column=1)
 
 zipcode=Entry(root,width=30)
-zipcode.grid(row=7,column=1)
+zipcode.grid(row=8,column=1)
 
 delete_box=Entry(root,width=30,bg='grey',fg='white')
-delete_box.grid(row=11,column=1,pady=5)
+delete_box.grid(row=12,column=1,pady=5)
 
 # Create textbox labels
 f_name_label=Label(root,text="First Name",width=25, anchor="w",bg='#C04000',fg='white')
-f_name_label.grid(row=0,column=0,padx=20)
+f_name_label.grid(row=1,column=0,padx=20)
 
 l_name_label=Label(root,text="Last Name",width=25, anchor="w",bg='#C04000',fg='white')
-l_name_label.grid(row=1,column=0)
+l_name_label.grid(row=2,column=0)
 
 age_label=Label(root,text="Age",width=25, anchor="w",bg='#C04000',fg='white')
-age_label.grid(row=2,column=0)
+age_label.grid(row=3,column=0)
 
 password_label=Label(root,text="Password",width=25, anchor="w",bg='#C04000',fg='white')
-password_label.grid(row=3,column=0)
+password_label.grid(row=4,column=0)
 
 father_name_label=Label(root,text="Father Name",width=25, anchor="w",bg='#C04000',fg='white')
-father_name_label.grid(row=4,column=0)
+father_name_label.grid(row=5,column=0)
 
 address_label=Label(root,text="Address",width=25, anchor="w",bg='#C04000',fg='white')
-address_label.grid(row=5,column=0)
+address_label.grid(row=6,column=0)
 
 city_label=Label(root,text="City",width=25, anchor="w",bg='#C04000',fg='white')
-city_label.grid(row=6,column=0)
+city_label.grid(row=7,column=0)
 
 zipcode_label=Label(root,text="zipcode",width=25, anchor="w",bg='#C04000',fg='white')
-zipcode_label.grid(row=7,column=0)
+zipcode_label.grid(row=8,column=0)
 
 delete_box_label=Label(root,text="Select ID to delete / update",width=25, anchor="w",bg="red",fg='black')
-delete_box_label.grid(row=11,column=0,pady=5)
+delete_box_label.grid(row=12,column=0,pady=5)
 
 # Create submit button    
 submit_btn=Button(root,text="Submit",bg='#046307',fg='white',command=submit)
-submit_btn.grid(row=9,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+submit_btn.grid(row=10,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # Create query button
 query_btn=Button(root,text="Query",bg='#046307',fg='white',command=query)
-query_btn.grid(row=10,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+query_btn.grid(row=11,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # Create delete button
 delete_box_btn=Button(root,text="Delete",bg='red',command=delete)
-delete_box_btn.grid(row=12,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+delete_box_btn.grid(row=13,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # Create update button
 edit_box_btn=Button(root,text="Update",bg='#046307',fg='white',command=edit)
-edit_box_btn.grid(row=13,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+edit_box_btn.grid(row=14,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # commit change
 conn.commit()
