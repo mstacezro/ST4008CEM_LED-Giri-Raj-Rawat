@@ -1,5 +1,6 @@
 '''
 A Facebook database is created using SQLite3.
+Aim is to show the complete CRUD application of Facebook.
 The title of the table is "user".
 Several necessary input and output is carried out in a GUI prepared by importing "Tkinter.
 The GUI allows addition, display and modification of instructions. 
