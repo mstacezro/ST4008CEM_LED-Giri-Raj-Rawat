@@ -10,6 +10,7 @@ from tkinter import *
 from tkinter import ttk
 import sqlite3
 
+
 from tkinter import messagebox
 
 #object name for the tkinter project
@@ -19,7 +20,7 @@ root=Tk()
 root.title("Facebook")
 
 #dimension, background color of project
-root.geometry("540x420")
+root.geometry("535x450")
 # root.resizable(0,0)     #nonresizable, for resizable (True,True)
 root.config(bg='#3090C7')
 
@@ -28,6 +29,8 @@ root.config(bg='#3090C7')
 from PIL import Image, ImageTk
 logo = ImageTk.PhotoImage(file='/home/mstacezro/Documents/SOFTWARICA/Programming and Algorithms--Giri Raj Rawat/CODES/S-Q-L-l-i-lt-e/data---boss/fb.png')
 root.tk.call('wm', 'iconphoto', root._w, logo)
+
+
 
 # DATABASES
 #create a database or connect to one
