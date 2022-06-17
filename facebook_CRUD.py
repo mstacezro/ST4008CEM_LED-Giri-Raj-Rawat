@@ -7,6 +7,7 @@ The GUI allows addition, display and modification of instructions.
 
 #import tkinter for GUI, sqlite3 for database 
 from tkinter import *
+from tkinter import ttk
 import sqlite3
 
 from tkinter import messagebox
@@ -18,12 +19,12 @@ root=Tk()
 root.title("Facebook")
 
 #dimension, background color of project
-root.geometry("540x700")
+root.geometry("540x420")
 # root.resizable(0,0)     #nonresizable, for resizable (True,True)
 root.config(bg='#3090C7')
 
 #icon of facebook
-##NOTE:  root.iconbitmap("personlog.ico") doesnot work in ubuntu
+##NOTE:  root.iconbitmap("*.ico") doesnot work in ubuntu
 from PIL import Image, ImageTk
 logo = ImageTk.PhotoImage(file='/home/mstacezro/Documents/SOFTWARICA/Programming and Algorithms--Giri Raj Rawat/CODES/S-Q-L-l-i-lt-e/data---boss/fb.png')
 root.tk.call('wm', 'iconphoto', root._w, logo)
@@ -104,27 +105,95 @@ def query():
     which returns data in the form of a result table. 
     These result tables are also called result sets.
     '''
-    
-    #connect to database
+
+    info_query=Toplevel()
+    info_query.title("Datas of user")
+    info_query.configure(bg='#B1FB17')
+
+    #connect to main database
     conn=sqlite3.connect('user.db')
+    c=conn.cursor()
     
     #create cursor
     c=conn.cursor()
 
     #select query of the database
+    '''
+    OID is auto-incrementing integer value,  
+    that can be automatically assigned to each row of a table created WITH OIDS option.
+    ID can be used as an identity (auto-increment) primary key column
+    '''
     c.execute("SELECT *,oid FROM user")
 
     #Fetches the existing rows from a result set
     records=c.fetchall()
     print(records)
-    print_records=''
+    
 
     #output of records in database
     #Loop through the results
+    # for record in records:
+    #     print_records+=str(record[0]) +' ' + str(record[1]) +" " + 2*'\t' + str(record[2])+ " " +'\t' + str(record[3])+ " " +'\t' + str(record[4])+ " " +'\t' + str(record[5])+ " " +'\t' + str(record[6])+ " " +'\t' + str(record[7]) + "\n"
+    # query_label=Label(root,text=print_records, anchor="w")
+    # query_label.grid(row=8,column=0,columnspan=4)
+
+#...................
+
+    
+    
+    columns = ('first_name', 'last_name', 'age','password','father_name','address','city','zipcode','Serial_No')
+    
+
+    tree = ttk.Treeview(info_query, columns=columns, show='headings')
+
+    ##dimensions for the columns #BUG # no atomatic sizing
+    # tree.column("# 1",anchor=CENTER, stretch=NO, width=30)
+    # tree.column("# 2",anchor=CENTER, stretch=NO, width=100)
+    tree.column("# 3",anchor=CENTER, stretch=NO, width=50)
+    # tree.column("# 4",anchor=CENTER, stretch=NO, width=100)
+    # tree.column("# 5",anchor=CENTER, stretch=NO, width=100)
+    # tree.column("# 6",anchor=CENTER, stretch=NO, width=100)
+    tree.column("# 7",anchor=CENTER, stretch=NO, width=150)
+    tree.column("# 8",anchor=CENTER, stretch=NO, width=70)
+    tree.column("# 9",anchor=CENTER, stretch=NO, width=30)
+    
+
+    # define headings
+    tree.heading('first_name', text='First Name')
+    tree.heading('last_name', text='Last Name')
+    tree.heading('age', text='Age')
+    tree.heading('password', text='Password')
+    tree.heading('father_name', text='Father Name')
+    tree.heading('address', text='Address')
+    tree.heading('city', text='City')
+    tree.heading('zipcode', text='Zipcode')
+    tree.heading('Serial_No',text='S.N.')
+    
+
+
+
+    # query_label=Label(info_query,text=print_records, anchor="w")
+    # query_label.grid(row=8,column=0,columnspan=4)
+
+    # add data to the treeview
     for record in records:
-        print_records+=str(record[0]) +' ' + str(record[1]) +" " + 2*'\t' + str(record[2])+ " " +'\t' + str(record[3])+ " " +'\t' + str(record[4])+ " " +'\t' + str(record[5])+ " " +'\t' + str(record[6])+ " " +'\t' + str(record[7]) + "\n"
-    query_label=Label(root,text=print_records, anchor="w")
-    query_label.grid(row=8,column=0,columnspan=4)
+        tree.insert('', END, values=record)
+
+    #position of tree label
+    tree.grid(row=0, column=0, sticky=NSEW)
+
+    # vertical scrollbar
+    vbar = ttk.Scrollbar(info_query, orient=VERTICAL, command=tree.yview)
+    tree.configure(yscrollcommand=vbar.set)
+    vbar.grid(row=0, column=1, sticky=NS)
+
+    #horizontal scrollbar   #BUG #horizontal bar shows but doesnot work
+    hbar = ttk.Scrollbar(info_query, orient=HORIZONTAL, command=tree.xview)
+    tree.configure(xscrollcommand=hbar.set)
+    hbar.grid(row=1, column=0, sticky=EW)
+    
+
+#......................
 
 def delete():
     '''
@@ -171,8 +240,8 @@ def update():
     first_name=:first,
     last_name=:last,
     age=:age,
-    password=:password
-    father_name=:father_name
+    password=:password,
+    father_name=:father_name,
     address=:address,
     city=:city,
     zipcode=:zipcode
@@ -325,7 +394,7 @@ zipcode=Entry(root,width=30)
 zipcode.grid(row=7,column=1)
 
 delete_box=Entry(root,width=30,bg='grey',fg='white')
-delete_box.grid(row=9,column=1,pady=5)
+delete_box.grid(row=11,column=1,pady=5)
 
 # Create textbox labels
 f_name_label=Label(root,text="First Name",width=25, anchor="w",bg='#C04000',fg='white')
@@ -353,15 +422,15 @@ zipcode_label=Label(root,text="zipcode",width=25, anchor="w",bg='#C04000',fg='wh
 zipcode_label.grid(row=7,column=0)
 
 delete_box_label=Label(root,text="Select ID to delete / update",width=25, anchor="w",bg="red",fg='black')
-delete_box_label.grid(row=9,column=0,pady=5)
+delete_box_label.grid(row=11,column=0,pady=5)
 
 # Create submit button    
 submit_btn=Button(root,text="Submit",bg='#046307',fg='white',command=submit)
-submit_btn.grid(row=10,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+submit_btn.grid(row=9,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # Create query button
 query_btn=Button(root,text="Query",bg='#046307',fg='white',command=query)
-query_btn.grid(row=11,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
+query_btn.grid(row=10,column=0,columnspan=2,pady=10,padx=10,ipadx=120)
 
 # Create delete button
 delete_box_btn=Button(root,text="Delete",bg='red',command=delete)
