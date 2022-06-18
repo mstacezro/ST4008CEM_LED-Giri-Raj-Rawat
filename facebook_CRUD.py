@@ -211,33 +211,6 @@ def query():
 
 #......................
 
-def delete():
-    '''
-    DELETE Query is used to delete the existing records from a table.
-    You can use WHERE clause with DELETE query to delete the selected rows, 
-    otherwise all the records would be deleted.
-    '''
-    #connect to database
-    conn=sqlite3.connect('user.db')
-    
-    #create cursor
-    c=conn.cursor()
-
-    #delete the unnecessary row which is obtained using .get()
-    c.execute("DELETE FROM user WHERE oid="+delete_box.get())
-
-    #inform the user that the data row is deleted
-    print("Deleted")
-
-    #messagebox to show when datas are deleted
-    messagebox.showinfo("Success","Record has been deleted")
-
-    #clears the delete box
-    delete_box.delete(0,END)
-
-    #commit changes
-    conn.commit()
-    conn.close()
 
 def update():
     '''
@@ -283,6 +256,34 @@ def update():
     #destroying all the data and closing window
     editor.destroy()
 
+
+def delete():
+    '''
+    DELETE Query is used to delete the existing records from a table.
+    You can use WHERE clause with DELETE query to delete the selected rows, 
+    otherwise all the records would be deleted.
+    '''
+    #connect to database
+    conn=sqlite3.connect('user.db')
+    
+    #create cursor
+    c=conn.cursor()
+
+    #delete the unnecessary row which is obtained using .get()
+    c.execute("DELETE FROM user WHERE oid="+delete_box.get())
+
+    #inform the user that the data row is deleted
+    print("Deleted")
+
+    #messagebox to show when datas are deleted
+    messagebox.showinfo("Success","Record has been deleted")
+
+    #clears the delete box
+    delete_box.delete(0,END)
+
+    #commit changes
+    conn.commit()
+    conn.close()
 
 
 def edit():
