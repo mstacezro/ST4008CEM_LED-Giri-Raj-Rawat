@@ -229,6 +229,9 @@ def delete():
     #inform the user that the data row is deleted
     print("Deleted")
 
+    #messagebox to show when datas are deleted
+    messagebox.showinfo("Success","Record has been deleted")
+
     #clears the delete box
     delete_box.delete(0,END)
 
@@ -279,6 +282,8 @@ def update():
 
     #destroying all the data and closing window
     editor.destroy()
+
+
 
 def edit():
     '''
@@ -368,6 +373,8 @@ def edit():
     zipcode_editor=Entry(editor,width=30)
     zipcode_editor.grid(row=7,column=1,padx=20)
 
+    
+
     #the data to be updated are recorded in 
     # respective attribute noted by index numbers in  database
     for record in records:
@@ -383,6 +390,10 @@ def edit():
     #update button for the update dialog box
     edit_btn=Button(editor,text="Update",bg='#046307',fg='white',command=update)
     edit_btn.grid(row=8,column=0,columnspan=2,pady=10,padx=10,ipadx=100)
+
+    
+
+    
 
 # Create text entries
 f_name=Entry(root,width=30,bg='white')
